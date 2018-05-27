@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/messaging-engine.iml" filepath="$PROJECT_DIR$/.idea/modules/messaging-engine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/messaging-engine_main.iml" filepath="$PROJECT_DIR$/.idea/modules/messaging-engine_main.iml" group="messaging-engine" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/messaging-engine_test.iml" filepath="$PROJECT_DIR$/.idea/modules/messaging-engine_test.iml" group="messaging-engine" />
+    </modules>
+  </component>
+</project>
