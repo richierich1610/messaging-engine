@@ -1,8 +1,10 @@
 package com.jp.morgan.messaging.util;
 
+import java.math.BigDecimal;
+
 public class StringUtil {
 
-    public static float parseFloat(final String price) {
-        return Float.parseFloat(price.replace("p", ""));
+    public static BigDecimal parseFloat(final String price) {
+        return new BigDecimal(price.replace("p", ""));
     }
 }

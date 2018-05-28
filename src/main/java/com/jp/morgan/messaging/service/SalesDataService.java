@@ -1,5 +1,6 @@
 package com.jp.morgan.messaging.service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -26,7 +27,7 @@ public class SalesDataService implements IDataService {
             System.out.println("--------------------------------- START Sales Report ---------------------------------");
             for (Map.Entry<String, List<Sale>> entry : SALE_MAP.entrySet()) {
                 List<Sale> sales = SALE_MAP.get(entry.getKey());
-                double value = sales.stream().mapToDouble(e -> e.getValue()).sum();
+                BigDecimal value = sales.stream().map(e -> e.getValue()).reduce(BigDecimal.ZERO, BigDecimal::add);
                 System.out.println(String.format("[%s] product type having total sale [%d] of total value [%f]", entry.getKey(), sales.size(), value));
             }
             System.out.println("--------------------------------- END Sales Report ---------------------------------");
@@ -44,18 +45,18 @@ public class SalesDataService implements IDataService {
         }
     }
 
-    public boolean doAdjustment(SaleOperationType operation,float value,String productType) {
+    public boolean doAdjustment(SaleOperationType operation,BigDecimal value,String productType) {
         List<Sale> sales = SALE_MAP.get(productType);
         if (null != sales) {
             switch (operation) {
                 case ADD:
-                    sales.stream().forEach(e -> e.setValue(e.getValue() + value));
+                    sales.stream().forEach(e -> e.setValue(e.getValue().add(value)));
                     break;
                 case SUBTRACT:
-                    sales.stream().forEach(e -> e.setValue(e.getValue() - value));
+                    sales.stream().forEach(e -> e.setValue(e.getValue().subtract(value)));
                     break;
                 case MULTIPLY:
-                    sales.stream().forEach(e -> e.setValue(e.getValue() * value));
+                    sales.stream().forEach(e -> e.setValue(e.getValue().multiply(value)));
                     break;
                 default:
                     System.out.println("Logging: - Invalid operation specified.");

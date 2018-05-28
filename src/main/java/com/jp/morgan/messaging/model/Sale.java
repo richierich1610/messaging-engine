@@ -1,10 +1,12 @@
 package com.jp.morgan.messaging.model;
 
+import java.math.BigDecimal;
+
 public class Sale {
     private ProductType productType;
-    private float value;
+    private BigDecimal value;
 
-    public Sale(ProductType productType, float value) {
+    public Sale(ProductType productType, BigDecimal value) {
         this.productType = productType;
         this.value = value;
     }
@@ -17,11 +19,11 @@ public class Sale {
         this.productType = productType;
     }
 
-    public float getValue() {
+    public BigDecimal getValue() {
         return value;
     }
 
-    public void setValue(float value) {
+    public void setValue(BigDecimal value) {
         this.value = value;
     }
 }
