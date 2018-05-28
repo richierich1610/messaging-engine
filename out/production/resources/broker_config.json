@@ -1,7 +1,0 @@
-{
-  "max_capacity_message": 50,
-  "max_pause_interval": 10000,
-  "sales_report_frequency": 10,
-  "adjustment_report_frequency": 50,
-  "broker_retry_count": 2
-}

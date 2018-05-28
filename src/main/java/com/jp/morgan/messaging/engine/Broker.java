@@ -9,10 +9,13 @@ import com.jp.morgan.messaging.consumer.IMessageConsumer;
 import com.jp.morgan.messaging.model.Message;
 import com.jp.morgan.messaging.producer.IMessageProducer;
 import com.jp.morgan.messaging.producer.MessageProducer;
+import com.jp.morgan.messaging.util.Config;
 
 
 public class Broker implements IBroker  {
     private static Broker INSTANCE;
+    protected int RETRY_COUNT = Config.APP_CONFIG.get("broker_retry_count").getAsInt();
+    protected long RETRY_INTERVAL = Config.APP_CONFIG.get("broker_retry_interval_in_ms").getAsLong();
     private Map<String,List<BlockingQueue<Message>>> registeredQueues = new HashMap<>();
 
     private Broker() {
@@ -49,11 +52,16 @@ public class Broker implements IBroker  {
     	if(availableQueues != null)
     	{
     		availableQueues.stream().forEach(queue->{
-    			try {
-					queue.put(message);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+    				int counter = 0;
+    				while(!queue.offer(message) && counter<=RETRY_COUNT)
+    				{
+    					counter++;
+    					try {
+							Thread.sleep(RETRY_INTERVAL);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+    				}
     		});
     		return true;
     	}
