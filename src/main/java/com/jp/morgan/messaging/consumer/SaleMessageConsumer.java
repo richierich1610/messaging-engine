@@ -41,16 +41,16 @@ public class SaleMessageConsumer extends AbstractMessageConsumer {
 
             if (SaleOperationType.getOperations().contains(values[0].toUpperCase())) {
                 //Add 20p apples would instruct your application to add 20p to each sale of apples you have recorded.
-                dataService.doAdjustment(SaleOperationType.valueOf(values[0].toUpperCase()),StringUtil.parseFloat(values[1]),values[2].toUpperCase());
+                dataService.doAdjustment(SaleOperationType.valueOf(values[0].toUpperCase()),StringUtil.parsePriceString(values[1]),values[2].toUpperCase());
             } else if (values[0].matches("\\d+")) {
                 //20 sales of apples at 10p each
                 int value = Integer.parseInt(values[0]);
                 for (int i = 0; i < value; i++) {
-                    dataService.doRegisterSale(new Sale(new ProductType(values[3].toUpperCase()), StringUtil.parseFloat(values[5])));
+                    dataService.doRegisterSale(new Sale(new ProductType(values[3].toUpperCase()), StringUtil.parsePriceString(values[5])));
                 }
             } else {
                 //apple at 10p
-                dataService.doRegisterSale(new Sale(new ProductType(values[0].toUpperCase() + "S"), StringUtil.parseFloat(values[2])));
+                dataService.doRegisterSale(new Sale(new ProductType(values[0].toUpperCase() + "S"), StringUtil.parsePriceString(values[2])));
             }
             return true;
         } catch (Exception ex) {

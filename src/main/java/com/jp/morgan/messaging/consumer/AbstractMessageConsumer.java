@@ -20,6 +20,12 @@ public abstract class AbstractMessageConsumer implements IMessageConsumer {
     	startConsumerProcess();
     }
     
+    public AbstractMessageConsumer(BlockingQueue<Message> queue)
+    {
+    	queue =(queue != null)?queue:new LinkedBlockingQueue<Message>();
+    	startConsumerProcess();
+    }
+    
     private void startConsumerProcess()
     {
     	(new Thread(this)).start();

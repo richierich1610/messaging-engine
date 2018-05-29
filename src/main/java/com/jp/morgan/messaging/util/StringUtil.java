@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class StringUtil {
 
-    public static BigDecimal parseFloat(final String price) {
+    public static BigDecimal parsePriceString(final String price) {
         return new BigDecimal(price.replace("p", ""));
     }
 }
